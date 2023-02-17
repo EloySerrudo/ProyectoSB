@@ -1,7 +1,27 @@
 package com.proyecto.registro.controllers;
+// La capa del controlador solo debería comunicarse con la capa de servicio.
+import com.proyecto.registro.dto.UsuarioInDTO;
+import com.proyecto.registro.persistences.models.Usuario;
+import com.proyecto.registro.services.UsuarioService;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
+@RequestMapping("api/v1/usuarios")
 public class UsuarioController {
+    private final UsuarioService usuarioService;
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+    // Crear una tarea o elementos
+    @GetMapping                     //A veces aquí se especifica la URL
+    public List<Usuario> getUsuarios(){
+        return this.usuarioService.getUsuarios();
+    }
+    @PostMapping
+    public Usuario addUsuario(@RequestBody UsuarioInDTO usuarioInDTO) {
+        return this.usuarioService.addUsuario(usuarioInDTO);
+    }
 }
