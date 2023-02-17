@@ -2,6 +2,7 @@ package com.proyecto.registro.services;
 
 import com.proyecto.registro.dto.UsuarioInDTO;
 import com.proyecto.registro.mappers.UsuarioInDTOToUsuario;
+import com.proyecto.registro.persistences.models.UserStatus;
 import com.proyecto.registro.persistences.models.Usuario;
 import com.proyecto.registro.persistences.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,11 @@ public class UsuarioService {       //Toda la lógica de negocio, como crear nue
     public Usuario addUsuario(UsuarioInDTO usuarioInDTO) {
         Usuario usuario = mapper.map(usuarioInDTO);
         return this.usuarioRepository.save(usuario);           // Esto convierte UsuarioInDTO en Usuario
+    }
+    public void deleteUsuario(Integer id) {
+        this.usuarioRepository.deleteById(id);
+    }
+    public List<Usuario> getUsuariosByStatus(UserStatus userStatus) {
+        return this.usuarioRepository.findAllByUserStatus(userStatus);
     }
 }

@@ -1,6 +1,7 @@
 package com.proyecto.registro.controllers;
 // La capa del controlador solo debería comunicarse con la capa de servicio.
 import com.proyecto.registro.dto.UsuarioInDTO;
+import com.proyecto.registro.persistences.models.UserStatus;
 import com.proyecto.registro.persistences.models.Usuario;
 import com.proyecto.registro.services.UsuarioService;
 import org.springframework.web.bind.annotation.*;
@@ -23,5 +24,13 @@ public class UsuarioController {
     @PostMapping
     public Usuario addUsuario(@RequestBody UsuarioInDTO usuarioInDTO) {
         return this.usuarioService.addUsuario(usuarioInDTO);
+    }
+    @DeleteMapping("{usuarioId}")
+    public void deleteUsuario(@PathVariable("usuarioId") Integer id) {
+        this.usuarioService.deleteUsuario(id);
+    }
+    @GetMapping("/status/{status}")
+    public List<Usuario> getUsuariosByStatus(@PathVariable("status") UserStatus userStatus) {
+        return this.usuarioService.getUsuariosByStatus(userStatus);
     }
 }
