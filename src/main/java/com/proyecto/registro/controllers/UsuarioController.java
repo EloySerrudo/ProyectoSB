@@ -21,17 +21,21 @@ public class UsuarioController {
     public List<Usuario> getUsuarios(){
         return this.usuarioService.getUsuarios();
     }
+    @GetMapping("{usuarioId}")
+    public Usuario getUsuario(@PathVariable("usuarioId") Integer id){
+        return usuarioService.getUsuario(id);
+    }
     @PostMapping
     public Usuario addUsuario(@RequestBody UsuarioInDTO usuarioInDTO) {
         return this.usuarioService.addUsuario(usuarioInDTO);
     }
-    @DeleteMapping("{usuarioId}")
-    public void deleteUsuario(@PathVariable("usuarioId") Integer id) {
-        this.usuarioService.deleteUsuario(id);
-    }
     @PutMapping("{usuarioId}")
     public void updateUsuario(@PathVariable("usuarioId") Integer id, @RequestBody Usuario request){
         this.usuarioService.updateUsuario(id, request);
+    }
+    @DeleteMapping("{usuarioId}")
+    public void deleteUsuario(@PathVariable("usuarioId") Integer id) {
+        this.usuarioService.deleteUsuario(id);
     }
     @GetMapping("/status/{status}")
     public List<Usuario> getUsuariosByStatus(@PathVariable("status") UserStatus userStatus) {

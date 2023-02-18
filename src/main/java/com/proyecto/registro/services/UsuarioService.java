@@ -1,43 +1,47 @@
 package com.proyecto.registro.services;
 
+import com.proyecto.registro.dao.UsuarioDao;
 import com.proyecto.registro.dto.UsuarioInDTO;
 import com.proyecto.registro.mappers.UsuarioInDTOToUsuario;
 import com.proyecto.registro.persistences.models.UserStatus;
 import com.proyecto.registro.persistences.models.Usuario;
-import com.proyecto.registro.persistences.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UsuarioService {       //Toda la lógica de negocio, como crear nuevos usuarios
-    private final UsuarioRepository usuarioRepository;  // Service se conecta a Repository y
-    private final UsuarioInDTOToUsuario mapper;         // Repository a la Base de Datos
+    private final UsuarioDao usuarioDao;
+    private final UsuarioInDTOToUsuario mapper;
     //Final, le da Inmutabilidad al atributo
     //Aquí se hace una inyección de dependencias:
-    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioInDTOToUsuario mapper) {
-        this.usuarioRepository = usuarioRepository;
+    public UsuarioService(@Qualifier("jpa") UsuarioDao usuarioDao,
+                          UsuarioInDTOToUsuario mapper) {
         this.mapper = mapper;
+        this.usuarioDao = usuarioDao;
     }
     // Aquí estarán los métodos que se harán con los usuarios:
     public List<Usuario> getUsuarios() {
-        return this.usuarioRepository.findAll();
+        return this.usuarioDao.selectAllUsuarios();
+    }
+    public Usuario getUsuario(Integer id) {
+        return this.usuarioDao.selectUsuarioById(id);
     }
     public Usuario addUsuario(UsuarioInDTO usuarioInDTO) {
-        Usuario usuario = mapper.map(usuarioInDTO);
-        return this.usuarioRepository.save(usuario);           // Esto convierte UsuarioInDTO en Usuario
-    }
-    public void deleteUsuario(Integer id) {
-        this.usuarioRepository.deleteById(id);
+        Usuario usuario = mapper.map(usuarioInDTO);           // Esto convierte UsuarioInDTO en Usuario
+        return this.usuarioDao.insertUsuario(usuario);
     }
     public void updateUsuario(Integer id, Usuario updateRequest) {
-        //Optional hace referencia a una variable que puede tener un valor o que puede contener un null.
-        Usuario usuario = usuarioRepository.findById(id).get();
+        Usuario usuario = this.usuarioDao.selectUsuarioById(id);
         usuario.setNombre(updateRequest.getNombre());
         usuario.setApellido(updateRequest.getApellido());
-        this.usuarioRepository.save(usuario);
+        this.usuarioDao.updateUsuario(id, updateRequest);
+    }
+    public void deleteUsuario(Integer id) {
+        this.usuarioDao.deleteUsuario(id);
     }
     public List<Usuario> getUsuariosByStatus(UserStatus userStatus) {
-        return this.usuarioRepository.findAllByUserStatus(userStatus);
+        return this.usuarioDao.selectAllUsuariosByStatus(userStatus);
     }
 }

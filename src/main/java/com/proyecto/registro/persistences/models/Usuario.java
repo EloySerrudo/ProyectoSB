@@ -10,7 +10,13 @@ import java.time.LocalDateTime;
 @Table(name = "usuarios")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "usuarios_id_sequence",
+            sequenceName = "usuarios_id_sequence",
+            allocationSize = 1)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "usuarios_id_sequence")
     private Integer id;
     private String nombre;
     private String apellido;
