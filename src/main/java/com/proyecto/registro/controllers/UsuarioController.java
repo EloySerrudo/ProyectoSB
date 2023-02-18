@@ -29,6 +29,10 @@ public class UsuarioController {
     public void deleteUsuario(@PathVariable("usuarioId") Integer id) {
         this.usuarioService.deleteUsuario(id);
     }
+    @PutMapping("{usuarioId}")
+    public void updateUsuario(@PathVariable("usuarioId") Integer id, @RequestBody Usuario request){
+        this.usuarioService.updateUsuario(id, request);
+    }
     @GetMapping("/status/{status}")
     public List<Usuario> getUsuariosByStatus(@PathVariable("status") UserStatus userStatus) {
         return this.usuarioService.getUsuariosByStatus(userStatus);

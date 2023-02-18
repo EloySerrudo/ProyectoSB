@@ -13,7 +13,7 @@ import java.util.List;
 public class UsuarioService {       //Toda la lógica de negocio, como crear nuevos usuarios
     private final UsuarioRepository usuarioRepository;  // Service se conecta a Repository y
     private final UsuarioInDTOToUsuario mapper;         // Repository a la Base de Datos
-    //Final le da Inmutabilidad al atributo
+    //Final, le da Inmutabilidad al atributo
     //Aquí se hace una inyección de dependencias:
     public UsuarioService(UsuarioRepository usuarioRepository, UsuarioInDTOToUsuario mapper) {
         this.usuarioRepository = usuarioRepository;
@@ -29,6 +29,13 @@ public class UsuarioService {       //Toda la lógica de negocio, como crear nue
     }
     public void deleteUsuario(Integer id) {
         this.usuarioRepository.deleteById(id);
+    }
+    public void updateUsuario(Integer id, Usuario updateRequest) {
+        //Optional hace referencia a una variable que puede tener un valor o que puede contener un null.
+        Usuario usuario = usuarioRepository.findById(id).get();
+        usuario.setNombre(updateRequest.getNombre());
+        usuario.setApellido(updateRequest.getApellido());
+        this.usuarioRepository.save(usuario);
     }
     public List<Usuario> getUsuariosByStatus(UserStatus userStatus) {
         return this.usuarioRepository.findAllByUserStatus(userStatus);
