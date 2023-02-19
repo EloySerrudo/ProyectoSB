@@ -6,6 +6,7 @@ import com.proyecto.registro.persistences.models.Usuario;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 //import java.util.Optional;
 
 @Repository("jpa")
@@ -22,8 +23,8 @@ public class UsuarioJPADataAccessService implements UsuarioDao {
     }
 
     @Override
-    public Usuario selectUsuarioById(Integer id) {
-        return usuarioRepository.findById(id).get();
+    public Optional<Usuario> selectUsuarioById(Integer id) {
+        return usuarioRepository.findById(id);
     }
 
     @Override
@@ -32,7 +33,12 @@ public class UsuarioJPADataAccessService implements UsuarioDao {
     }
 
     @Override
-    public void updateUsuario(Integer id, Usuario update) {
+    public boolean existsUsuarioById(Integer id) {
+        return usuarioRepository.existsUsuarioById(id);
+    }
+
+    @Override
+    public void updateUsuario(Usuario update) {
         this.usuarioRepository.save(update);
     }
 
