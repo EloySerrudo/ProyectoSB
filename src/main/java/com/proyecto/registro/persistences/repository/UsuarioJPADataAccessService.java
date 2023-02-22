@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-//import java.util.Optional;
 
 @Repository("jpa")
 public class UsuarioJPADataAccessService implements UsuarioDao {
+    // Aquí está toda la lógica relacionada con la BD utilizando la capa Models
     private final UsuarioRepository usuarioRepository;
 
     public UsuarioJPADataAccessService(UsuarioRepository usuarioRepository) {

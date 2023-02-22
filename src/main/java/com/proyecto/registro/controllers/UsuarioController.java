@@ -1,5 +1,5 @@
 package com.proyecto.registro.controllers;
-// La capa del controlador solo debería comunicarse con la capa de servicio.
+
 import com.proyecto.registro.dto.UsuarioInDTO;
 import com.proyecto.registro.persistences.models.UserStatus;
 import com.proyecto.registro.persistences.models.Usuario;
@@ -11,6 +11,8 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/usuarios")
 public class UsuarioController {
+    // La capa del controlador solo debería comunicarse con la capa de servicio.
+    // Aquí se definen las rutas según la Request(petición) y URL
     private final UsuarioService usuarioService;
 
     public UsuarioController(UsuarioService usuarioService) {

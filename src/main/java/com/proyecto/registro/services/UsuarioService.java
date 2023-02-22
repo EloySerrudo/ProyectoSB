@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UsuarioService {       //Toda la lógica de negocio, como crear nuevos usuarios
+public class UsuarioService {
+    //Aquí está toda la lógica de negocios u operaciones como crear nuevos usuarios
     private final UsuarioDao usuarioDao;
     private final UsuarioInDTOToUsuario mapper;
     //Final, le da Inmutabilidad al atributo
