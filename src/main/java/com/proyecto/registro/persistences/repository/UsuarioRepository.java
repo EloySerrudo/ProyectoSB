@@ -9,5 +9,5 @@ import java.util.List;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<Usuario> findAllByUserStatus(UserStatus userStatus);
     // Petición creada propia a la Base de datos
-    boolean existsUsuarioById(Integer id);
+    boolean existsUsuarioByUsuarioId(Integer id);
 }

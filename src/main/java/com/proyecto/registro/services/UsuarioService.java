@@ -18,7 +18,7 @@ public class UsuarioService {
     private final UsuarioInDTOToUsuario mapper;
     //Final, le da Inmutabilidad al atributo
     //Aquí se hace una inyección de dependencias:
-    public UsuarioService(@Qualifier("jpa") UsuarioDao usuarioDao,
+    public UsuarioService(@Qualifier("jpaUsuario") UsuarioDao usuarioDao,
                           UsuarioInDTOToUsuario mapper) {
         this.mapper = mapper;
         this.usuarioDao = usuarioDao;

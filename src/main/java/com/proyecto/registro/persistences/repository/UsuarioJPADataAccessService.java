@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("jpa")
+@Repository("jpaUsuario")
 public class UsuarioJPADataAccessService implements UsuarioDao {
     // Aquí está toda la lógica relacionada con la BD utilizando la capa Models
     private final UsuarioRepository usuarioRepository;
@@ -34,7 +34,7 @@ public class UsuarioJPADataAccessService implements UsuarioDao {
 
     @Override
     public boolean existsUsuarioById(Integer id) {
-        return usuarioRepository.existsUsuarioById(id);
+        return usuarioRepository.existsUsuarioByUsuarioId(id);
     }
 
     @Override
